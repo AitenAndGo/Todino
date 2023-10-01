@@ -20,6 +20,7 @@ public class Health : MonoBehaviour
         {
             Die();
             FindObjectOfType<Money>().addMoney(money);
+            FindObjectOfType<GameManager>().enemydead += 1;
         }
     }
 

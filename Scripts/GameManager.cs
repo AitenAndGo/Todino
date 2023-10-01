@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public int dinosToSpawnNumber = 4;
+    public int dinosToSpawnNumber = 15;
     public int currentDinosSpawnNumber = 0;
 
     public GameObject s1;
@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     private bool tura1 = true;
     private bool tura2 = false;
 
+    public int enemy = 0;
+    public int enemydead = 0;
+    public bool end = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,16 +36,17 @@ public class GameManager : MonoBehaviour
             if (flag){
                 if (currentDinosSpawnNumber < dinosToSpawnNumber)
                 {
-                    Invoke("Spawn", 4.0f);
-                } else{
-                    Invoke("next", 25.0f);
-                    tura1 = false;
+                    Invoke("Spawn", Random.Range(4, 7));
+                    enemy += 4;
                 }
                 flag = false;
             }
         }
-        if (Time.timeSinceLevelLoad > 60){
-            if (FindObjectOfType<DinoMovement>() != null){
+        if (currentDinosSpawnNumber == dinosToSpawnNumber){
+            end = true;
+        }
+        if (end){
+            if (enemydead == enemy){
                 GameWon();
             }
         }
@@ -53,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void next(){
         tura2 = true;
+        flag = true;
         currentDinosSpawnNumber = 6;
     }
 
